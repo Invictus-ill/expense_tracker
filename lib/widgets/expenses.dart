@@ -84,6 +84,7 @@ class _ExpensesState extends State<Expenses> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Flutter Expense Tracker'),
         actions: [
