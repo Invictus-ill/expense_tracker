@@ -63,7 +63,8 @@ class _ExpensesState extends State<Expenses> {
       useSafeArea: true,
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => NewExpense(_addExpense),
+      builder: (ctx) =>
+          Container(height: double.infinity, child: NewExpense(_addExpense)),
     );
   }
 
