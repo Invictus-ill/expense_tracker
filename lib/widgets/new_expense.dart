@@ -134,45 +134,69 @@ class _NewExpenseState extends State<NewExpense> {
                         ),
                       ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          _selectedDate == null
-                              ? 'No Date Selected'
-                              : formatter.format(_selectedDate!),
-                        ),
-                        IconButton(
-                          onPressed: _presentDatePicker,
-                          icon: const Icon(Icons.calendar_month),
-                        ),
-                      ],
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            _selectedDate == null
+                                ? 'No Date Selected'
+                                : formatter.format(_selectedDate!),
+                          ),
+                          IconButton(
+                            onPressed: _presentDatePicker,
+                            icon: const Icon(Icons.calendar_month),
+                          ),
+                          const Spacer(),
+                          if (width < 600)
+                            DropdownButton(
+                              value: _selectedCategory,
+                              items: expense.Category.values
+                                  .map(
+                                    (cateogry) => DropdownMenuItem(
+                                      value: cateogry,
+                                      child: Text(cateogry.name.toUpperCase()),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                if (value == null) {
+                                  return;
+                                }
+                                setState(() {
+                                  _selectedCategory = value;
+                                });
+                              },
+                            ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    DropdownButton(
-                      value: _selectedCategory,
-                      items: expense.Category.values
-                          .map(
-                            (cateogry) => DropdownMenuItem(
-                              value: cateogry,
-                              child: Text(cateogry.name.toUpperCase()),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          _selectedCategory = value;
-                        });
-                      },
-                    ),
+                    if (width > 600)
+                      DropdownButton(
+                        value: _selectedCategory,
+                        items: expense.Category.values
+                            .map(
+                              (cateogry) => DropdownMenuItem(
+                                value: cateogry,
+                                child: Text(cateogry.name.toUpperCase()),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value == null) {
+                            return;
+                          }
+                          setState(() {
+                            _selectedCategory = value;
+                          });
+                        },
+                      ),
                     const Spacer(),
                     TextButton(
                       onPressed: () {
